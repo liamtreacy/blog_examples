@@ -7,6 +7,8 @@
 #include <chrono>
 #include <thread>
 
+const static std::string LOG_PREFIX = "Generated: ";
+
 class Logger
 {
     public:
@@ -35,15 +37,19 @@ int generateRandomNumber(int max, int min)
     return rand() % range + min;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    Logger logger("tmp.txt");
+    if(argc < 2)
+    {
+        std::cout << "Error, usage: <exe> <log_file>\n";
+        return 1;
+    }
 
-    std::string s = "Generated: ";
+    Logger logger(argv[1]);
 
     while(1)
     {
-        logger.log(s + std::to_string(generateRandomNumber(10,1)));
+        logger.log(LOG_PREFIX + std::to_string(generateRandomNumber(10,1)));
         std::this_thread::sleep_for(std::chrono::seconds(5));
     }
 
