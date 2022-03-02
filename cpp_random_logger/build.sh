@@ -1,0 +1,1 @@
+g++ main.cpp -o random_logger
